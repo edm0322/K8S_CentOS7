@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx      # replication controller의 이름
+spec:
+  replicas: 3      # pod의 복제본은 3개(원본포함)
+  selector:        # nginx라는 label을 가진 pod을 select
+    app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:      # spec.selector와 spec.template.metadata.labels는 같아야함
+        app: nginx
+    spec:          # 컨테이너의 정보
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
