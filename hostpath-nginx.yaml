@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts: # pod의 path
+    - name: volumepath
+      mountPath: /usr/share/nginx/html
+  volumes:
+  - name : volumepath
+    hostPath: # 반드시 노드에 해당 path가 있는지 확인할 것
+      path: /root/hostdir
+      type: DirectoryOrCreate #없으면 생성
+      #type: Directory # 없으면 Pod 생성 X
